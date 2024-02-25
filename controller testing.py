@@ -36,7 +36,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.JOYBUTTONDOWN:
             # if options button pressed program ends
-            if event.button == 9:
+            if event.button == 6:
                 running = False
 
         # handles new device connection, add start up comments in here
