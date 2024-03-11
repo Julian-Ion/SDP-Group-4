@@ -12,4 +12,6 @@ pi should be able to connect to either eduroam or hotspot with name "testnet" an
 
 Please try not to delete files on the pi directly it can mess stuff up
 
-if you create files make sure theyre in the /home/pi/SDP-Group-4 directory and then run "bash push.sh" on the terminal in the same directory
+if you create or edit files directly on the pi make sure theyre in the /home/pi/SDP-Group-4 directory and then run "bash push.sh" on the terminal in the same directory to sych to this repo
+
+if you don't run bash push.sh they wont be synched, but they won't be deleted either (i think), they should sync on the next boot
