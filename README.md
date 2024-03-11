@@ -9,3 +9,7 @@ command to ssh is "ssh pi@<IP>"
 pi has the password "alfred"
 
 pi should be able to connect to either eduroam or hotspot with name "testnet" and password "testnet1"
+
+Please try not to delete files on the pi directly it can mess stuff up
+
+if you create files make sure theyre in the /home/pi/SDP-Group-4 directory and then run "bash push.sh" on the terminal in the same directory
