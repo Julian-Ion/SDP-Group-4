@@ -1,4 +1,10 @@
-sleep 5
+#!/bin/bash
+
+while ! ping -c 4 google.com > /dev/null; 
+do 
+echo "The network is not up yet"
+sleep 1 
+done
 
 cd /home/pi/SDP-Group-4
 git pull
