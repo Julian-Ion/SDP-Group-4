@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sleep 5
+sleep 10
 
 while ! ping -c 4 google.com > /dev/null; 
 do 
@@ -9,8 +9,6 @@ sleep 1
 done
 
 echo "Connected to network"
-
-sudo git config --global --add safe.directory /home/pi/SDP-Group-4
 
 cd /home/pi/SDP-Group-4
 git pull
