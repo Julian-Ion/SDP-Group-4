@@ -1,11 +1,12 @@
-import smbus
+from smbus import SMBus
 
 
 
 
 
 def main() -> None:
-    ...
+    ic2bus = SMBus(1)
+    ic2_address = 0x20
 
 
 if __name__ == "__main__":
