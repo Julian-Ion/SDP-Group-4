@@ -7,7 +7,7 @@ import math
 
 import requests
 
-port = "/dev/ttyUSB1";
+port = "/dev/ttyUSB0";
 baud_rate = 230400;
 
 print("\n>port:", port," baud_rate:", baud_rate );
@@ -142,8 +142,12 @@ def poll():
 			print("\n>lidar pool() exception was thrown: ", e)
 			time.sleep(2)
 
-threading.Thread(target=draw).start()
-threading.Thread(target=send).start()
+#threading.Thread(target=draw).start()
+#threading.Thread(target=send).start()
 
-poll()
+#poll()
+
+threading.Thread(target=poll).start()
+draw()
+
 exit()
