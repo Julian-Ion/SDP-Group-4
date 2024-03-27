@@ -67,7 +67,7 @@ class Controller:
             else:
                 y_speed: float = self.transformRange(output["y"])
                 print(f"No buttons: Manual Speed {y_speed}")
-                if y_speed >= 0.6:
+                if y_speed <= -0.6 or y_speed >= 0.6:
                     if not self.CONTROLLER_TEST:
                         self.ARDUINO_INTERFACE.setMotorSpeed(y_speed)
                 else:
