@@ -62,7 +62,8 @@ class Controller:
 
 
 def main() -> None:
-    print(platform.system())
+    controller = Controller()
+    controller.main()
     return None
 
 
