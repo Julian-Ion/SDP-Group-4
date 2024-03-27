@@ -43,11 +43,20 @@ class Controller:
     def setMotorSpeed(self, val: float) -> None:
 
         if not self.CONTROLLER_TEST:
-            if (val <= -0.6 or val >= 0.6):
+            if abs(val) >= 0.6:
                 self.ARDUINO_INTERFACE.setMotorSpeed(val)
             else:
                 self.ARDUINO_INTERFACE.setMotorSpeed(0.0)
             
+        return None
+    
+    def setTurningSpeed(self, val: float) -> None:
+
+        if not self.CONTROLLER_TEST:
+            self.ARDUINO_INTERFACE.leftSpeed = val
+            self.ARDUINO_INTERFACE.rightSpeed = -val
+            self.ARDUINO_INTERFACE.update()
+
         return None
 
     def main(self) -> None:
@@ -62,10 +71,7 @@ class Controller:
             if turning: # Turning
                 x_speed: float = self.transformRange(output["x"])
                 print(f"Square: Turning {x_speed}")
-                if not self.CONTROLLER_TEST:
-                    self.ARDUINO_INTERFACE.leftSpeed = x_speed
-                    self.ARDUINO_INTERFACE.rightSpeed = -x_speed
-                    self.ARDUINO_INTERFACE.update()
+                self.setTurningSpeed(x_speed)
             elif output["triangle"]:
                 print("Triangle: Set speed 0.7")
                 self.setMotorSpeed(0.7)
