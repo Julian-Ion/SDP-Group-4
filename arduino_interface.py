@@ -119,8 +119,8 @@ class ArduinoInterface:
         #self.leftSpeed = selectInRange(-1, 1, self.leftSpeed)
         #self.rightSpeed = selectInRange(-1, 1, self.rightSpeed)
         
-        leftStr = "{:03d}".format(int(self.leftSpeed*0.75*255+255))
-        rightStr = "{:03d}".format(int(self.rightSpeed*0.75*255+255))
+        leftStr = "{:03d}".format(int(self.leftSpeed*255+255))
+        rightStr = "{:03d}".format(int(self.rightSpeed*255+255))
         
         #leftStr = f"{int(self.leftSpeed*255+255)}"
         #rightStr = f"{int(self.rightSpeed*255+255)}"
