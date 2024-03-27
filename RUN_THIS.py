@@ -37,10 +37,12 @@ class Controller:
         output = self.JOYSTICK.getValues()
         while not output["cross"]:
 
-            if output["square"]: # Turning
+            turning: bool = bool(output["square"])
+            self.ARDUINO_INTERFACE.setTurnMode(turning)
+
+            if turning: # Turning
                 x_speed: float = self.transformRange(output["x"])
                 print(f"Square: Turning {x_speed}")
-                # self.ARDUINO_INTERFACE.setTurnMode()
                 # self.ARDUINO_INTERFACE.leftSpeed = x_speed
                 # self.ARDUINO_INTERFACE.rightSpeed = -x_speed
                 # self.ARDUINO_INTERFACE.update()
