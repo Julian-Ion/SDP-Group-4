@@ -110,8 +110,8 @@ class ArduinoInterface:
     
     def update(self):
         
-        while time.time_ns() < self.nextSendTime:
-            time.sleep(0.1)
+        while time.time() < self.nextSendTime:
+            time.sleep(0.05)
             
         self.leftSpeed = max(min(1, self.leftSpeed), -1) # What do these two lines do? -Sam
         self.rightSpeed = max(min(1, self.rightSpeed), -1)
@@ -149,7 +149,7 @@ class ArduinoInterface:
         print("Sending: ", msg)
         self.ser.write(bytes(msg, 'utf-8'))
 
-        self.nextSendTime = time.time_ns()+100
+        self.nextSendTime = time.time()+0.1
 
     def setBrakes(self, brakes):
         self.brakes = brakes
