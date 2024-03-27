@@ -11,7 +11,7 @@ class Controller:
     def __init__(self) -> None:
             
         self.JOYSTICK: SimpleJoystick = SimpleJoystick()
-        # self.ARDUINO_INTERFACE: ArduinoInterface = ArduinoInterface()
+        self.ARDUINO_INTERFACE: ArduinoInterface = ArduinoInterface()
         self.SYSTEM: str = platform.system()
 
         return None
@@ -43,19 +43,22 @@ class Controller:
             if turning: # Turning
                 x_speed: float = self.transformRange(output["x"])
                 print(f"Square: Turning {x_speed}")
-                # self.ARDUINO_INTERFACE.leftSpeed = x_speed
-                # self.ARDUINO_INTERFACE.rightSpeed = -x_speed
-                # self.ARDUINO_INTERFACE.update()
+                self.ARDUINO_INTERFACE.leftSpeed = x_speed
+                self.ARDUINO_INTERFACE.rightSpeed = -x_speed
+                self.ARDUINO_INTERFACE.update()
             elif output["triangle"]:
                 print("Triangle: Set speed 0.7")
-                # self.ARDUINO_INTERFACE.setMotorSpeed(0.7)
+                self.ARDUINO_INTERFACE.setMotorSpeed(0.7)
             elif output["circle"]:
                 print("Circle: Set speed 1")
-                # self.ARDUINO_INTERFACE.setMotorSpeed(1.0)
+                self.ARDUINO_INTERFACE.setMotorSpeed(1.0)
             else:
                 y_speed: float = self.transformRange(output["y"])
                 print(f"No buttons: Manual Speed {y_speed}")
-                # self.ARDUINO_INTERFACE.setMotorSpeed(y_speed)
+                if y_speed >= 0.6:
+                    self.ARDUINO_INTERFACE.setMotorSpeed(y_speed)
+                else:
+                    self.ARDUINO_INTERFACE.setMotorSpeed(0.0)
 
             sleep(0.1)
             self.clear()
