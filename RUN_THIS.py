@@ -53,8 +53,14 @@ class Controller:
     def setTurningSpeed(self, val: float) -> None:
 
         if not self.CONTROLLER_TEST:
-            self.ARDUINO_INTERFACE.leftSpeed = val
-            self.ARDUINO_INTERFACE.rightSpeed = -val
+            
+            if abs(val) >= 0.6:
+                self.ARDUINO_INTERFACE.leftSpeed = val
+                self.ARDUINO_INTERFACE.rightSpeed = -val
+            else:
+                self.ARDUINO_INTERFACE.leftSpeed = 0.0
+                self.ARDUINO_INTERFACE.rightSpeed = 0.0
+
             self.ARDUINO_INTERFACE.update()
 
         return None
