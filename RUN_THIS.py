@@ -10,7 +10,7 @@ class Controller:
 	
     def __init__(self) -> None:
         
-        self.CONTROLLER_TEST: bool = True
+        self.CONTROLLER_TEST: bool = False
             
         self.JOYSTICK: SimpleJoystick = SimpleJoystick()
         if not self.CONTROLLER_TEST: self.ARDUINO_INTERFACE: ArduinoInterface = ArduinoInterface()
