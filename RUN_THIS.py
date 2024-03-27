@@ -5,7 +5,7 @@ from SimpleJoystick import SimpleJoystick
 
 class Controller:
 	
-	def __init(self)__ -> None:
+	def __init__(self) -> None:
 		...
 		
 		return None
