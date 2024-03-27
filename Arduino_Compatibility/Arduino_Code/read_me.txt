@@ -1,0 +1,3 @@
+The ino file 'arduino_motor_controller.ino' has to sent over the the arduino on each compile. 
+It will store the code so if no changes are made to this file, it will suffice to press the 'reset' button on the board to rerun code.
+Also, it will insist on being in its own folder. Still not sure why... 

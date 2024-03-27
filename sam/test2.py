@@ -6,7 +6,9 @@ from smbus import SMBus
 
 def main() -> None:
     ic2bus = SMBus(1)
-    ic2_address = 0x20
+    ic2_address = 0x07
+    
+    ic2bus.write_byte(ic2_address, 0xEF)
 
 
 if __name__ == "__main__":

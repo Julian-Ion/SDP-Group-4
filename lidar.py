@@ -126,13 +126,16 @@ def poll():
 									# Last two bytes represent the uncertanty or intensity, might also be pixel area of target...
 									# uint16_t intensity = (byte3 << 8) + byte2;
 									ranges = (byte3 << 8) + byte2;
+									
+									if ranges == 0:
+										ranges = 4200
 
 									# scan->ranges[359-index] = range / 1000.0;
 									# scan->intensities[359-index] = intensity;
 
 									#print(">r[",359-index,"]=", ranges / 1000.0 );
-									x[int(359-index)] = (ranges*10)*math.cos(math.radians(index))
-									y[int(359-index)] = (ranges*10)*math.sin(math.radians(index))
+									x[int(359-index)] = (ranges)*math.cos(math.radians(index))
+									y[int(359-index)] = (ranges)*math.sin(math.radians(index))
 									data[int(359-index)] = ranges
 					# scan->time_increment = motor_speed/good_sets/1e8;
 

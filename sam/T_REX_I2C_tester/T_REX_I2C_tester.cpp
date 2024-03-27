@@ -1,4 +1,4 @@
-#include <Wire.h>
+include <Wire.h>
 
 #define startbyte 0x0F
 #define I2Caddress 0x07
@@ -51,7 +51,3 @@ void loop()
     }
   }
 }
-
-
-
-
