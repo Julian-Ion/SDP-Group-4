@@ -4,7 +4,7 @@ import threading
 
 #from time import time, sleep
 
-from SimpleJoystick import SimpleJoystick
+# from SimpleJoystick import SimpleJoystick
 
 import os
 
@@ -66,7 +66,7 @@ def listen(ser):
             except:
                 pass
 
-class arduino_interface:
+class ArduinoInterface:
     
     def __init__(self):
         self.ser = serial.Serial('/dev/ttyACM0', 9600, timeout=2)
@@ -232,12 +232,8 @@ while True:
     time.sleep(0.1)
 """
 
+def main() -> None:
+    return None
+
 if __name__ == "__main__":
     pass
-
-
-
-
-
-
-

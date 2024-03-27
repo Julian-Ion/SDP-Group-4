@@ -116,14 +116,14 @@ def controller():
                     # whatever direction it was facing when it went into turning mode
                 # as well as speed being scaled with the joystick magnitudes
             
-            """interface.setTurnMode(turnmode)
+            interface.setTurnMode(turnmode)
             
             if turnmode:
                 interface.leftSpeed = leftStickLeftRight
                 interface.rightSpeed = -leftStickLeftRight
                 interface.update()
             else:
-                interface.setMotorSpeed(leftStickUpDown)"""
+                interface.setMotorSpeed(leftStickUpDown)
 
         if len(joysticks) == 0 and frameCount == 0:
             print("no controller detected")

@@ -33,8 +33,9 @@ class SimpleJoystick:
 		return {"x": round(x_axis, 2), "y": round(y_axis, 2), "square": square, "cross": cross, "circle": circle, "triangle": triangle}
 
 
-
 def main() -> None:
+
+	return None
 	
 	joystick = SimpleJoystick()
 	
