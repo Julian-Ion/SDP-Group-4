@@ -39,6 +39,16 @@ class Controller:
             os.system("cls")
 
         return None
+    
+    def setMotorSpeed(self, val: float) -> None:
+
+        if not self.CONTROLLER_TEST:
+            if (val <= -0.6 or val >= 0.6):
+                self.ARDUINO_INTERFACE.setMotorSpeed(val)
+            else:
+                self.ARDUINO_INTERFACE.setMotorSpeed(0.0)
+            
+        return None
 
     def main(self) -> None:
 
@@ -58,21 +68,14 @@ class Controller:
                     self.ARDUINO_INTERFACE.update()
             elif output["triangle"]:
                 print("Triangle: Set speed 0.7")
-                if not self.CONTROLLER_TEST:
-                    self.ARDUINO_INTERFACE.setMotorSpeed(0.7)
+                self.setMotorSpeed(0.7)
             elif output["circle"]:
                 print("Circle: Set speed 1")
-                if not self.CONTROLLER_TEST:
-                    self.ARDUINO_INTERFACE.setMotorSpeed(1.0)
+                self.setMotorSpeed(1.0)
             else:
                 y_speed: float = self.transformRange(output["y"])
                 print(f"No buttons: Manual Speed {y_speed}")
-                if y_speed <= -0.6 or y_speed >= 0.6:
-                    if not self.CONTROLLER_TEST:
-                        self.ARDUINO_INTERFACE.setMotorSpeed(y_speed)
-                else:
-                    if not self.CONTROLLER_TEST:
-                        self.ARDUINO_INTERFACE.setMotorSpeed(0.0)
+                self.setMotorSpeed(y_speed)
 
             sleep(0.1)
             self.clear()
