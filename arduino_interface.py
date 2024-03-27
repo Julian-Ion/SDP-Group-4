@@ -180,7 +180,7 @@ class arduino_interface:
         self.rightSpeed = newSpeed
         self.leftSpeed = newSpeed
         self.update()
-
+"""
 interface = arduino_interface()
 
 interface.setTurnMode(True)
@@ -199,7 +199,7 @@ interface.setMotorSpeed(0)
 time.sleep(1)
 
 interface.setTurnMode(False)
-
+"""
 
 """
 
@@ -232,7 +232,8 @@ while True:
     time.sleep(0.1)
 """
 
-
+if __name__ == "__main__":
+    pass
 
 
 

@@ -1,4 +1,11 @@
-from controller-testing import controller
+#from controller-testing import controller
 from SimpleJoystick import SimpleJoystick
 
-controller()
+
+
+class Controller:
+	
+	def __init(self)__ -> None:
+		...
+		
+		return None

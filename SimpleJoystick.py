@@ -35,7 +35,11 @@ class SimpleJoystick:
 
 
 def main() -> None:
-	return None
+	
+	joystick = SimpleJoystick()
+	
+	while True:
+		print(joystick.getValues())
 
 
 if __name__ == "__main__":
