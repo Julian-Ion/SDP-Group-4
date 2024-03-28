@@ -40,7 +40,7 @@ class ArduinoInterface:
         # OTHER
 
         self.brakes: bool = False
-        self.DEBUG: bool = False
+        self.DEBUG: bool = True
 
         # MAIN LOOP
 
