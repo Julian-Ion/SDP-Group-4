@@ -51,6 +51,7 @@ class ArduinoInterface:
         # THREADING
 
         self.lock = threading.Lock()
+        self.condition = threading.Condition()
 
     def debugPrint(self, msg: str) -> None:
         if self.DEBUG:
@@ -76,39 +77,42 @@ class ArduinoInterface:
         """
         while not self.finished:
 
-            # Motors
-            
-            self.left_speed = selectInRange(-1, 1, self.left_speed)
-            self.right_speed = selectInRange(-1, 1, self.right_speed)
+            with self.condition:
 
-            # Turn into a string after calculation and pad with 0s on the left, e.g. 5 => 005
-            left_motors_string: str = "{:03d}".format(int((self.left_speed*255)+255))
-            right_motors_string: str = "{:03d}".format(int(self.right_speed*255+255))
-
-            # Brakes
-
-            if self.brakes:
-                brakes_string: str = "255"
-            else:
-                brakes_string: str = "000"
-
-            # Servos
-
-            servos_string: str = ""
-            for i in range(self.NUM_SERVOS):
-                if self.servos[i] != 2.0:
-                    self.servos[i] = selectInRange(0, 1, self.servos[i])
-                servos_string += "{:03d}".format(int(self.servos[i]*100))
-
-            # Compile message
+                # Motors
                 
-            message: str = f"{left_motors_string}{right_motors_string}{brakes_string}{servos_string}"
+                self.left_speed = selectInRange(-1, 1, self.left_speed)
+                self.right_speed = selectInRange(-1, 1, self.right_speed)
 
-            self.debugPrint(f"Sending: {message}")
+                # Turn into a string after calculation and pad with 0s on the left, e.g. 5 => 005
+                left_motors_string: str = "{:03d}".format(int((self.left_speed*255)+255))
+                right_motors_string: str = "{:03d}".format(int(self.right_speed*255+255))
 
-            self.ser.write(bytes(message, 'utf-8'))
+                # Brakes
 
-            sleep(self.TIMEOUT)
+                if self.brakes:
+                    brakes_string: str = "255"
+                else:
+                    brakes_string: str = "000"
+
+                # Servos
+
+                servos_string: str = ""
+                for i in range(self.NUM_SERVOS):
+                    if self.servos[i] != 2.0:
+                        self.servos[i] = selectInRange(0, 1, self.servos[i])
+                    servos_string += "{:03d}".format(int(self.servos[i]*100))
+
+                # Compile message
+                    
+                message: str = f"{left_motors_string}{right_motors_string}{brakes_string}{servos_string}"
+
+                self.debugPrint(f"Sending: {message}")
+
+                self.ser.write(bytes(message, 'utf-8'))
+
+                self.condition.wait()
+                sleep(self.TIMEOUT)
 
         return None
 
@@ -154,6 +158,8 @@ class ArduinoInterface:
         
         with self.lock:
             self.left_speed = speed
+
+        self.condition.notify()
         return None
 
     def getLeftSpeed(self) -> float:
@@ -172,6 +178,8 @@ class ArduinoInterface:
 
         with self.lock:
             self.right_speed = speed
+
+        self.condition.notify()
         return None
 
     def getRightSpeed(self) -> float:
@@ -192,6 +200,7 @@ class ArduinoInterface:
             self.left_speed = speed
             self.right_speed = speed
 
+        self.condition.notify()
         return None
     
     def setServos(self, angle: float) -> None:
@@ -204,6 +213,8 @@ class ArduinoInterface:
 
         with self.lock:
             self.servos = [angle for _ in range(self.NUM_SERVOS)]
+
+        self.condition.notify()
         return None
     
     def getServos(self) -> list[float]:
@@ -230,6 +241,7 @@ class ArduinoInterface:
         else:
             print(f"Attempted to set servo {servo_index} in range 0-{self.NUM_SERVOS}")
 
+        self.condition.notify()
         return None
     
     def getServo(self, servo_index: int) -> float:
@@ -245,7 +257,7 @@ class ArduinoInterface:
                 return self.servos[servo_index]
         else:
             print(f"Attempted to get servo {servo_index} in range 0-{self.NUM_SERVOS}")
-
+        
         return None
     
     def setBrakes(self, brakes: bool) -> None:
@@ -260,6 +272,7 @@ class ArduinoInterface:
         if self.brakes:
             self.setDualSpeed(0.0)
 
+        self.condition.notify()
         return None
         
 
