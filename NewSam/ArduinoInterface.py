@@ -144,6 +144,9 @@ class ArduinoInterface:
             else:
                 self.servos = [1.0, 1.0, 0.0, 2.0, 1.0, 2.0]
 
+        self.condition.notify()
+        self.resetServos()
+
         return None
 
     # Getters and Setters
