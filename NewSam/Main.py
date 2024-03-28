@@ -91,6 +91,7 @@ class Controller:
             sleep(0.1)
             self.clear()
             output = self.JOYSTICK.getValues()
+            print(output)
 
         self.ARDUINO_INTERFACE.quit()
         return None
