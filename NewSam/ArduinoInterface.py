@@ -51,7 +51,7 @@ class ArduinoInterface:
         # THREADING
 
         self.lock = threading.Lock()
-        self.condition = threading.Condition()
+        self.updated: bool = True
 
     def debugPrint(self, msg: str) -> None:
         if self.DEBUG:
@@ -77,7 +77,8 @@ class ArduinoInterface:
         """
         while not self.finished:
 
-            with self.condition:
+            if self.updated:
+                self.updated = False
 
                 # Motors
                 
@@ -111,7 +112,6 @@ class ArduinoInterface:
 
                 self.ser.write(bytes(message, 'utf-8'))
 
-                self.condition.wait()
                 sleep(self.TIMEOUT)
 
         return None
@@ -144,7 +144,7 @@ class ArduinoInterface:
             else:
                 self.servos = [1.0, 1.0, 0.0, 2.0, 1.0, 2.0]
 
-        self.condition.notify()
+        self.updated = True
         self.resetServos()
 
         return None
@@ -162,7 +162,7 @@ class ArduinoInterface:
         with self.lock:
             self.left_speed = speed
 
-        self.condition.notify()
+        self.updated = True
         return None
 
     def getLeftSpeed(self) -> float:
@@ -182,7 +182,7 @@ class ArduinoInterface:
         with self.lock:
             self.right_speed = speed
 
-        self.condition.notify()
+        self.updated = True
         return None
 
     def getRightSpeed(self) -> float:
@@ -203,7 +203,7 @@ class ArduinoInterface:
             self.left_speed = speed
             self.right_speed = speed
 
-        self.condition.notify()
+        self.updated = True
         return None
     
     def setServos(self, angle: float) -> None:
@@ -217,7 +217,7 @@ class ArduinoInterface:
         with self.lock:
             self.servos = [angle for _ in range(self.NUM_SERVOS)]
 
-        self.condition.notify()
+        self.updated = True
         return None
     
     def getServos(self) -> list[float]:
@@ -244,7 +244,7 @@ class ArduinoInterface:
         else:
             print(f"Attempted to set servo {servo_index} in range 0-{self.NUM_SERVOS}")
 
-        self.condition.notify()
+        self.updated = True
         return None
     
     def getServo(self, servo_index: int) -> float:
@@ -275,7 +275,7 @@ class ArduinoInterface:
         if self.brakes:
             self.setDualSpeed(0.0)
 
-        self.condition.notify()
+        self.updated = True
         return None
         
 
