@@ -10,7 +10,7 @@ class Controller:
 	
     def __init__(self) -> None:
         
-        self.CONTROLLER_TEST: bool = False
+        self.CONTROLLER_TEST: bool = True
             
         self.JOYSTICK: SimpleJoystick = SimpleJoystick()
         if not self.CONTROLLER_TEST:
