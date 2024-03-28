@@ -88,7 +88,7 @@ class Controller:
                 print(f"No buttons: Manual Speed {y_speed}")
                 self.setMotorSpeed(y_speed)
 
-            sleep(1)
+            sleep(0.1)
             # self.clear()
             output = self.JOYSTICK.getValues()
             print(output)
