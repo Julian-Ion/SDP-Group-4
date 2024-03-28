@@ -232,7 +232,7 @@ class ArduinoInterface:
 
         return None
     
-    def getServo(self, servo_index: int) -> float | None:
+    def getServo(self, servo_index: int) -> float:
         """
         Get angle for specific servo
         """
