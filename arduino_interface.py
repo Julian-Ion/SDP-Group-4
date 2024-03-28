@@ -30,7 +30,6 @@ def selectInRange(low:int, high:int, value: int) -> int:
         return max(low, value)
     
 
-
 def listen(ser):
     global xaxis, yaxis, zaxis, xdelta, ydelta, zdelta
     while True:
@@ -69,6 +68,7 @@ def listen(ser):
 class ArduinoInterface:
     
     def __init__(self):
+        
         self.ser = serial.Serial('/dev/ttyACM0', 9600, timeout=2)
 
         self.leftSpeed = 0
